@@ -1,6 +1,13 @@
 import React from 'react'
 import '../styles/pokedex.scss'
 
+
+/**
+ * Todos
+ * - [ ] Automatically travel to find pokemon (procedural movements on terrain types)
+ * - [ ] You can click on pokemon you have discovered to learn more about them.
+ * - [ ] More details on the "PokeCard"
+ */
 const db = {}
 
 const request = async (url) => {
@@ -12,7 +19,7 @@ const request = async (url) => {
 const getRandomPokemon = async () => {
   const id = Math.floor(Math.random() * 151) + 1
   if (db[id]) {
-    return db[id]
+    return id
   }
   const data = await request(`https://pokeapi.co/api/v2/pokemon/${id}/`)
   db[id] = data
@@ -22,11 +29,18 @@ const getRandomPokemon = async () => {
 const PokeCard = ({ pokemon, discovered }) => (
   <div className={`pokecard ${discovered ? '' : 'undescovered'}`}>
     <img src={pokemon.sprites.front_default} />
-    <span>{pokemon.name}</span>
+    <div>
+      <h4>{pokemon.name}</h4>
+      <footer>
+        {pokemon.types.map(({type}) => (
+          <span className={type.name}>{type.name}</span>
+        ))}
+      </footer>
+    </div>
   </div>
 )
 
-export default class extends React.Component {
+class Pokedex extends React.Component {
   state = {
     encounter: null,
     discovered: []
@@ -35,6 +49,7 @@ export default class extends React.Component {
   encounter = async (e) => {
     e.preventDefault()
     const encounter = await getRandomPokemon()
+    console.log(db[encounter])
     this.setState({
       encounter
     })
@@ -43,7 +58,6 @@ export default class extends React.Component {
   discover = async (e) => {
     e.preventDefault()
     const { encounter, discovered } = this.state
-    console.log('state', this.state)
     if (encounter && discovered.indexOf(encounter) === -1) {
       this.setState({
         discovered: [...discovered, encounter]
@@ -55,9 +69,11 @@ export default class extends React.Component {
     const { encounter, discovered } = this.state
     return (
       <main>
-        <button onClick={this.encounter}>Encounter</button>
-        <button onClick={this.discover}>Scan</button>
-        {encounter && <span className={discovered.indexOf(encounter) === -1 ? 'undescovered' : ''}><img src={db[encounter].sprites.front_default} /></span>}
+        <header>
+          <button onClick={this.encounter}>Encounter</button>
+          <button onClick={this.discover}>Scan</button>
+          {encounter && <PokeCard pokemon={db[encounter]} discovered={discovered.indexOf(encounter) !== -1} />}
+        </header>
         <section>
           {Object.values(db).map(pokemon => (
             <PokeCard key={pokemon.id} pokemon={pokemon} discovered={discovered.indexOf(pokemon.id) !== -1} />
@@ -67,3 +83,5 @@ export default class extends React.Component {
     )
   }
 }
+
+export default Pokedex

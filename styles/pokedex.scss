@@ -1,42 +1,117 @@
 main {
   margin: 0 auto;
 
-  button {
-    background: blue;
-    color: white;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    outline: none;
-    margin-right: 0.5em;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-
-  section div {
-    float: left;
+  .pokecard {
+    height: 96px;
     width: 200px;
+    display: flex;
+
+    h4 {
+      text-transform: capitalize;
+    }
+
+    img {
+      vertical-align: middle;
+    }
 
     &.undescovered {
       &::after {
         content: '???';
       }
 
-      span {
+      img {
+        filter: brightness(0%);
+      }
+
+      div {
         display: none;
       }
     }
 
-    img {
-      vertical-align: middle;
+    footer span {
+      background-color: black;
+      color: white;
+      font-size: 0.5em;
+      padding: 0.25em 0.5em;
+      border-radius: 3px;
+      margin-right: 0.6em;
+    }
+
+    span.poison {
+      background-color: purple;
+    }
+
+    span.fire {
+      background-color: red;
+    }
+
+    span.fighting {
+      background-color: brown;
+    }
+
+    span.steel {
+      background-color: grey;
+    }
+
+    span.electric {
+      background-color: yellow;
+      color: black;
+    }
+
+    span.water {
+      background-color: blue;
+    }
+
+    span.grass {
+      background-color: green;
+    }
+
+    span.fairy {
+      background-color: pink;
+      color: black;
+    }
+
+    span.ground {
+      background-color: tan;
+      color: black;
+    }
+
+    span.psychic {
+      background-color: darkmagenta;
+    }
+
+    span.bug {
+      background-color: lime;
+      color: black;
     }
   }
 
-  .undescovered img {
-    filter: brightness(0%);
+  header {
+    height: 96px;
+
+    button {
+      background: blue;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      outline: none;
+      margin-right: 0.5em;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .pokecard {
+      float: right;
+    }
+  }
+
+
+  section .pokecard {
+    float: left;
   }
 }
