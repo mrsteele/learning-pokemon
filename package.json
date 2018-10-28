@@ -1,0 +1,31 @@
+{
+  "name": "learning-pokemon",
+  "version": "1.0.0",
+  "description": "Learning to program with my son.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrsteele/learning-pokemon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrsteele/learning-pokemon/issues"
+  },
+  "homepage": "https://github.com/mrsteele/learning-pokemon#readme",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "next": "^7.0.2",
+    "node-sass": "^4.9.4",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

@@ -1,0 +1,42 @@
+main {
+  margin: 0 auto;
+
+  button {
+    background: blue;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    outline: none;
+    margin-right: 0.5em;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  section div {
+    float: left;
+    width: 200px;
+
+    &.undescovered {
+      &::after {
+        content: '???';
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+    img {
+      vertical-align: middle;
+    }
+  }
+
+  .undescovered img {
+    filter: brightness(0%);
+  }
+}
