@@ -2,8 +2,6 @@ main {
   margin: 0 auto;
 
   .pokecard {
-    height: 96px;
-    width: 200px;
     display: flex;
 
     h4 {
@@ -12,6 +10,7 @@ main {
 
     img {
       vertical-align: middle;
+      image-rendering: pixelated;
     }
 
     &.undescovered {
@@ -104,14 +103,22 @@ main {
         opacity: 0.8;
       }
     }
+  }
 
+  section {
     .pokecard {
-      float: right;
+      width: 100%;
+
+      img {
+        width: 300px;
+        height: 300px;
+      }
     }
   }
 
-
-  section .pokecard {
+  aside .pokecard {
     float: left;
+    height: 96px;
+    width: 200px;
   }
 }

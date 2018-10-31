@@ -1,7 +1,6 @@
 import React from 'react'
 import '../styles/pokedex.scss'
 
-
 /**
  * Todos
  * - [ ] Automatically travel to find pokemon (procedural movements on terrain types)
@@ -26,11 +25,11 @@ const getRandomPokemon = async () => {
   return id
 }
 
-const PokeCard = ({ pokemon, discovered }) => (
+const PokeCard = ({ pokemon, filteredName, discovered }) => (
   <div className={`pokecard ${discovered ? '' : 'undescovered'}`}>
     <img src={pokemon.sprites.front_default} />
     <div>
-      <h4>{pokemon.name}</h4>
+      <h4>{filteredName || pokemon.name}</h4>
       <footer>
         {pokemon.types.map(({type}) => (
           <span className={type.name}>{type.name}</span>
@@ -72,13 +71,17 @@ class Pokedex extends React.Component {
         <header>
           <button onClick={this.encounter}>Encounter</button>
           <button onClick={this.discover}>Scan</button>
-          {encounter && <PokeCard pokemon={db[encounter]} discovered={discovered.indexOf(encounter) !== -1} />}
         </header>
-        <section>
+        {encounter && (
+          <section>
+            <PokeCard pokemon={db[encounter]} discovered={discovered.indexOf(encounter) !== -1} />
+          </section>
+        )}
+        <aside>
           {Object.values(db).map(pokemon => (
             <PokeCard key={pokemon.id} pokemon={pokemon} discovered={discovered.indexOf(pokemon.id) !== -1} />
           ))}
-        </section>
+        </aside>
       </main>
     )
   }
