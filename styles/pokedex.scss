@@ -1,6 +1,27 @@
 main {
   margin: 0 auto;
 
+  .pokeimage {
+    image-rendering: pixelated;
+
+    &.undescovered {
+      filter: brightness(0%);
+    }
+  }
+
+  .pokejumbo {
+    h3 {
+      text-transform: capitalize;
+      text-align: center;
+      letter-spacing: 0.15em;
+    }
+
+    .pokeimage {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
   .pokecard {
     display: flex;
 
@@ -10,16 +31,11 @@ main {
 
     img {
       vertical-align: middle;
-      image-rendering: pixelated;
     }
 
     &.undescovered {
       &::after {
         content: '???';
-      }
-
-      img {
-        filter: brightness(0%);
       }
 
       div {
@@ -106,13 +122,9 @@ main {
   }
 
   section {
-    .pokecard {
-      width: 100%;
+    display: flex;
 
-      img {
-        width: 300px;
-        height: 300px;
-      }
+    .pokecard {
     }
   }
 
@@ -120,5 +132,29 @@ main {
     float: left;
     height: 96px;
     width: 200px;
+  }
+
+  .letters {
+    padding: 0.5em;
+
+    button {
+      text-transform: uppercase;
+      font-size: 2em;
+      border-radius: 5px;
+      background-color: blue;
+      color: white;
+      display: inline-block;
+      width: 1.5em;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &[disabled] {
+        pointer-events: none;
+        background-color: grey;
+      }
+    }
   }
 }
