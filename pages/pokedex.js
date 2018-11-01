@@ -8,6 +8,7 @@ import '../styles/pokedex.scss'
  * - [ ] More details on the "PokeCard"
  */
 const db = {}
+const allLetters = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 const request = async (url) => {
   const response = await fetch(url)
@@ -43,9 +44,10 @@ const PokeCard = ({ pokemon, filteredName, discovered }) => (
   </div>
 )
 
+console.log('allLetters', allLetters)
 const filterName = (name, guesses) => {
   const nameArr = name.split('')
-  return nameArr.map(char => guesses.indexOf(char) === -1 ? '_' : char).join('')
+  return nameArr.map(char => guesses.indexOf(char) !== -1 || allLetters.indexOf(char) === -1 ? char : '_').join('')
 }
 
 const PokeJumbo = ({ pokemon, guesses }) => {
@@ -58,7 +60,6 @@ const PokeJumbo = ({ pokemon, guesses }) => {
   )
 }
 
-const allLetters = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const Letters = ({ guesses, onClick }) => (
   <div className='letters'>
     {allLetters.map(char => <button type="button" disabled={guesses.indexOf(char) !== -1} onClick={e => e.preventDefault && onClick(char)}>{char}</button>)}
@@ -98,7 +99,6 @@ class Pokedex extends React.Component {
 
       // check and see if they got then all
       const name = db[encounter].name
-      console.log('newArr', newArr)
       if (filterName(name, newArr) === name) {
         this.setState({
           discovered: {
@@ -107,7 +107,9 @@ class Pokedex extends React.Component {
           }
         })
       } else {
+        const newEncounter = name.indexOf(letter) === -1 ? null : encounter
         this.setState({
+          encounter: newEncounter,
           discovered: {
             ...discovered,
             [encounter]: newArr
@@ -118,7 +120,6 @@ class Pokedex extends React.Component {
   }
 
   render () {
-    console.log('this.state', this.state)
     const { encounter, discovered } = this.state
     return (
       <main>
@@ -133,7 +134,7 @@ class Pokedex extends React.Component {
         )}
         <aside>
           {Object.values(db).map(pokemon => (
-            <PokeCard key={pokemon.id} pokemon={pokemon} discovered={discovered[pokemon.id]} />
+            <PokeCard key={pokemon.id} pokemon={pokemon} discovered={discovered[pokemon.id] === true} />
           ))}
         </aside>
       </main>
