@@ -105,6 +105,7 @@ main {
     height: 96px;
 
     button {
+      user-select: none;
       background: blue;
       color: white;
       font-size: 1.2em;
@@ -117,6 +118,11 @@ main {
 
       &:hover {
         opacity: 0.8;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
     }
   }
@@ -139,6 +145,7 @@ main {
     max-width: 445px;
 
     button {
+      user-select: none;
       text-transform: uppercase;
       font-size: 2em;
       border-radius: 5px;
